@@ -1,17 +1,13 @@
 <?php
 
-require_once __DIR__ . '/../src/Entity/Destination.php';
-require_once __DIR__ . '/../src/Entity/Quote.php';
-require_once __DIR__ . '/../src/Entity/Site.php';
-require_once __DIR__ . '/../src/Entity/Template.php';
-require_once __DIR__ . '/../src/Entity/User.php';
-require_once __DIR__ . '/../src/Helper/SingletonTrait.php';
-require_once __DIR__ . '/../src/Context/ApplicationContext.php';
-require_once __DIR__ . '/../src/Repository/Repository.php';
-require_once __DIR__ . '/../src/Repository/DestinationRepository.php';
-require_once __DIR__ . '/../src/Repository/QuoteRepository.php';
-require_once __DIR__ . '/../src/Repository/SiteRepository.php';
-require_once __DIR__ . '/../src/TemplateManager.php';
+use App\Context\ApplicationContext;
+use App\Entity\Quote;
+use App\Entity\Template;
+use App\Repository\DestinationRepository;
+use App\Repository\QuoteRepository;
+use App\Repository\SiteRepository;
+use App\TemplateManager;
+use Faker\Factory;
 
 class TemplateManagerTest extends PHPUnit_Framework_TestCase
 {
@@ -34,9 +30,9 @@ class TemplateManagerTest extends PHPUnit_Framework_TestCase
      */
     public function test()
     {
-        $faker = \Faker\Factory::create();
+        $faker = Factory::create();
 
-        $destinationId                  = $faker->randomNumber();
+        $destinationId       = $faker->randomNumber();
         $expectedDestination = DestinationRepository::getInstance()->getById($destinationId);
         $expectedUser        = ApplicationContext::getInstance()->getCurrentUser();
 
@@ -46,15 +42,15 @@ class TemplateManagerTest extends PHPUnit_Framework_TestCase
             1,
             'Votre livraison à [quote:destination_name]',
             "
-Bonjour [user:first_name],
+            Bonjour [user:first_name],
 
-Merci de nous avoir contacté pour votre livraison à [quote:destination_name].
+            Merci de nous avoir contacté pour votre livraison à [quote:destination_name].
 
-Bien cordialement,
+            Bien cordialement,
 
-L'équipe de Shipper
-");
-        $templateManager = new TemplateManager();
+            L'équipe de Shipper
+            ");
+        $templateManager = new TemplateManager(new QuoteRepository, new SiteRepository, new DestinationRepository);
 
         $message = $templateManager->getTemplateComputed(
             $template,
@@ -65,13 +61,13 @@ L'équipe de Shipper
 
         $this->assertEquals('Votre livraison à ' . $expectedDestination->countryName, $message->subject);
         $this->assertEquals("
-Bonjour " . $expectedUser->firstname . ",
+            Bonjour " . $expectedUser->firstname . ",
 
-Merci de nous avoir contacté pour votre livraison à " . $expectedDestination->countryName . ".
+            Merci de nous avoir contacté pour votre livraison à " . $expectedDestination->countryName . ".
 
-Bien cordialement,
+            Bien cordialement,
 
-L'équipe de Shipper
-", $message->content);
+            L'équipe de Shipper
+            ", $message->content);
     }
 }
