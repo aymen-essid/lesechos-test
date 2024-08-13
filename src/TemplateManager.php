@@ -3,7 +3,12 @@
 namespace App;
 
 use App\Context\ApplicationContext;
+use App\Entity\Quote;
 use App\Entity\Template;
+use App\Entity\User;
+use App\Repository\DestinationRepository;
+use App\Repository\QuoteRepository;
+use App\Repository\SiteRepository;
 
 class TemplateManager
 {
