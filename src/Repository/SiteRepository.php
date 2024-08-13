@@ -6,7 +6,7 @@ use App\Entity\Site;
 use App\Helper\SingletonTrait;
 use Faker\Factory;
 
-class SiteRepository implements Repository
+class SiteRepository implements RepositoryInterface
 {
     use SingletonTrait;
 

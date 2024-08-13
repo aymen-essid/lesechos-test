@@ -6,7 +6,7 @@ use App\Entity\Destination;
 use App\Helper\SingletonTrait;
 use Faker\Factory;
 
-class DestinationRepository implements Repository
+class DestinationRepository implements RepositoryInterface
 {
     use SingletonTrait;
     /**

@@ -7,7 +7,7 @@ use App\Helper\SingletonTrait;
 use DateTime;
 use Faker\Factory;
 
-class QuoteRepository implements Repository
+class QuoteRepository implements RepositoryInterface
 {
     use SingletonTrait;
 
