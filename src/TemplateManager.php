@@ -1,5 +1,10 @@
 <?php
 
+namespace App;
+
+use App\Context\ApplicationContext;
+use App\Entity\Template;
+
 class TemplateManager
 {
     public function getTemplateComputed(Template $tpl, array $data)
