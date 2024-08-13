@@ -1,3 +1,16 @@
+# Refactoring Resume.
+
+## Steps
+
+ - Add Autoload to composer.json so the injection will be easier from the namespaces.
+ - Remove some unused instructions.
+ - Rename variables to be coherent with the logic.
+ - Split the functions in the TemplateManager for more readability.
+ - Rename the repository Interface for more readability.
+ - Use the dependency Injection For reusablity and easier testing.
+
+
+
 # Refactoring Kata Test
 
 ## Introduction

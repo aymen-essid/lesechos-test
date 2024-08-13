@@ -11,7 +11,7 @@ use App\Repository\QuoteRepository;
 use App\Repository\SiteRepository;
 use RuntimeException;
 
-class TemplateManager
+class TemplateManager implements TemplateInterface
 {
     private $quoteRepository;
     private $siteRepository;
